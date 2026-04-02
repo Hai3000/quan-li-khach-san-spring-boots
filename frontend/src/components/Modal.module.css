@@ -1,0 +1,386 @@
+/* Shared Styles for Modals */
+.modalOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(15, 23, 42, 0.65);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    animation: fadeIn 0.2s ease-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+.modalContent {
+    background: var(--bg-surface);
+    border-radius: 16px;
+    width: 100%;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+    animation: popIn 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    overflow: hidden;
+}
+
+@keyframes popIn {
+    0% {
+        transform: scale(0.96) translateY(20px);
+        opacity: 0;
+    }
+
+    100% {
+        transform: scale(1) translateY(0);
+        opacity: 1;
+    }
+}
+
+.checkinModal {
+    max-width: 680px;
+}
+
+.checkoutModal {
+    max-width: 480px;
+}
+
+.loaderContent {
+    max-width: 320px;
+    padding: 3rem;
+    text-align: center;
+}
+
+.modalHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem 1.75rem;
+    border-bottom: 1px solid var(--border-color);
+    background-color: #fcfcfd;
+}
+
+.modalHeader h2 {
+    margin: 0;
+    font-size: 1.25rem;
+    color: var(--text-main);
+    font-weight: 700;
+    letter-spacing: -0.025em;
+}
+
+.closeBtn {
+    background: transparent;
+    border: none;
+    color: var(--text-secondary);
+    cursor: pointer;
+    padding: 6px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+}
+
+.closeBtn:hover {
+    background-color: #f1f5f9;
+    color: var(--text-main);
+}
+
+.modalBody {
+    padding: 1.75rem;
+}
+
+/* Checkin Split Form Layout */
+.splitForm {
+    display: flex;
+    gap: 2rem;
+}
+
+.formColumn {
+    flex: 1;
+}
+
+.roomInfoCol {
+    flex: 0 0 35%;
+    background-color: var(--bg-body);
+    padding: 1.5rem;
+    border-radius: 12px;
+    border: 1px solid var(--border-color);
+}
+
+.infoBox {
+    margin-bottom: 1.5rem;
+}
+
+.infoBox:last-child {
+    margin-bottom: 0;
+}
+
+.infoLabel {
+    color: var(--text-secondary);
+    font-size: 0.85rem;
+    margin-bottom: 0.35rem;
+    font-weight: 500;
+}
+
+.infoValue {
+    color: var(--text-main);
+    font-weight: 700;
+    font-size: 1.15rem;
+}
+
+.priceText {
+    color: var(--success);
+}
+
+/* Input Styles */
+.formGroup {
+    margin-bottom: 1.25rem;
+}
+
+.formGroup label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: var(--text-main);
+    font-size: 0.875rem;
+    font-weight: 600;
+}
+
+.formGroup input {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    border: 2px solid var(--border-color);
+    border-radius: 8px;
+    font-size: 0.95rem;
+    background-color: #f8fafc;
+    transition: all 0.2s ease;
+}
+
+.formGroup input:focus {
+    outline: none;
+    border-color: var(--primary);
+    background-color: var(--bg-surface);
+    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+}
+
+.formGroup select {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    border: 2px solid var(--border-color);
+    border-radius: 8px;
+    font-size: 0.95rem;
+    background-color: #f8fafc;
+    color: var(--text-main);
+    font-family: inherit;
+    transition: all 0.2s ease;
+    cursor: pointer;
+}
+
+.formGroup select:focus {
+    outline: none;
+    border-color: var(--primary);
+    background-color: var(--bg-surface);
+    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+}
+
+.formGroup input.inputError {
+    border-color: var(--danger);
+    background-color: #fef2f2;
+}
+
+.errorText {
+    display: block;
+    color: var(--danger);
+    font-size: 0.75rem;
+    margin-top: 0.35rem;
+    font-weight: 500;
+}
+
+/* Footer & Buttons */
+.modalFooter {
+    padding: 1.25rem 1.75rem;
+    background-color: #fcfcfd;
+    border-top: 1px solid var(--border-color);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.endingFooter {
+    justify-content: flex-end;
+    gap: 1rem;
+}
+
+.pricePreview {
+    font-size: 1.05rem;
+    color: var(--text-secondary);
+}
+
+.pricePreview strong {
+    color: var(--primary);
+    font-size: 1.25rem;
+    font-weight: 700;
+}
+
+.btnPrimary,
+.btnSuccess,
+.btnSecondary {
+    padding: 0.75rem 1.5rem;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    cursor: pointer;
+    border: none;
+    transition: all 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btnPrimary {
+    background-color: var(--primary);
+    color: white;
+    box-shadow: 0 4px 6px -1px rgba(37, 99, 235, 0.2);
+}
+
+.btnPrimary:hover {
+    background-color: var(--primary-hover);
+    transform: translateY(-1px);
+}
+
+.btnSuccess {
+    background-color: var(--success);
+    color: white;
+    box-shadow: 0 4px 6px -1px rgba(16, 185, 129, 0.2);
+}
+
+.btnSuccess:hover {
+    background-color: var(--success-hover);
+    transform: translateY(-1px);
+}
+
+.btnSecondary {
+    background-color: #f1f5f9;
+    color: var(--text-main);
+    border: 1px solid var(--border-color);
+}
+
+.btnSecondary:hover {
+    background-color: #e2e8f0;
+}
+
+.btnPrimary:disabled,
+.btnSuccess:disabled {
+    background-color: #cbd5e1;
+    transform: none;
+    box-shadow: none;
+    cursor: not-allowed;
+}
+
+/* Invoice Styles */
+.invoiceBody {
+    text-align: center;
+}
+
+.invoiceHeader {
+    margin-bottom: 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.invoiceHeader h3 {
+    margin-top: 1rem;
+    color: var(--text-main);
+    font-size: 1.25rem;
+}
+
+.invoiceDetails {
+    text-align: left;
+    background: var(--bg-body);
+    padding: 1.75rem;
+    border-radius: 12px;
+    border: 1px solid var(--border-color);
+}
+
+.invoiceRow {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0.875rem;
+    font-size: 0.95rem;
+}
+
+.invoiceRow .label {
+    color: var(--text-secondary);
+}
+
+.invoiceRow .value {
+    color: var(--text-main);
+    font-weight: 500;
+}
+
+.divider {
+    border: none;
+    border-top: 2px dashed #cbd5e1;
+    margin: 1.25rem 0;
+}
+
+.totalRow {
+    margin-bottom: 0;
+    align-items: center;
+}
+
+.totalRow .label {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--text-main);
+}
+
+.totalRow .highlight {
+    font-size: 1.35rem;
+    font-weight: 800;
+    color: var(--success);
+}
+
+/* Utils */
+.spinner {
+    width: 20px;
+    height: 20px;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    border-top-color: white;
+    animation: spin 0.8s linear infinite;
+}
+
+.spinnerLg {
+    width: 44px;
+    height: 44px;
+    border-color: rgba(37, 99, 235, 0.2);
+    border-top-color: var(--primary);
+    margin: 0 auto 1.5rem;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.submitError {
+    padding: 0.875rem 1.5rem;
+    color: var(--danger);
+    background: #fef2f2;
+    font-size: 0.875rem;
+    text-align: center;
+    border-top: 1px solid #fecaca;
+    font-weight: 500;
+}

@@ -1,0 +1,149 @@
+.sidebar {
+    width: 250px;
+    height: 100vh;
+    background: #f8fafc;
+    border-right: 1px solid #e2e8f0;
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 100;
+}
+
+/* Logo */
+.sidebarHeader {
+    padding: 1.5rem 1.5rem;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+}
+
+.logoIcon {
+    width: 40px;
+    height: 40px;
+    background: #4f46e5;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    flex-shrink: 0;
+}
+
+.logoTextWrapper {
+    display: flex;
+    flex-direction: column;
+}
+
+.logoTitle {
+    font-size: 1.15rem;
+    font-weight: 800;
+    color: #0f172a;
+    letter-spacing: -0.02em;
+    line-height: 1.2;
+}
+
+.logoSubtitle {
+    font-size: 0.55rem;
+    font-weight: 700;
+    color: #64748b;
+    letter-spacing: 0.08em;
+}
+
+/* Nav */
+.sidebarNav {
+    flex: 1;
+    padding: 2rem 0;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.navItem {
+    display: flex;
+    align-items: center;
+    padding: 0.85rem 1.5rem;
+    color: #475569;
+    text-decoration: none;
+    transition: all 0.2s ease;
+    gap: 1rem;
+    font-weight: 600;
+    font-size: 0.9rem;
+    border-left: 4px solid transparent;
+}
+
+.navItem:hover {
+    color: #1e293b;
+    background: #f1f5f9;
+}
+
+.navItem.active {
+    background: #f0f4ff;
+    color: #4f46e5;
+    border-left: 4px solid #4f46e5;
+}
+
+/* Footer Links & Button */
+.sidebarFooter {
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+}
+
+.footerLinks {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.footerBtn {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    background: transparent;
+    border: none;
+    color: #64748b;
+    font-size: 0.9rem;
+    font-weight: 600;
+    padding: 0.5rem 0;
+    cursor: pointer;
+    transition: color 0.2s;
+}
+
+.footerBtn:hover {
+    color: #1e293b;
+}
+
+.newBookingBtn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    width: 100%;
+    padding: 0.85rem;
+    background: #4f46e5;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    font-size: 0.9rem;
+    font-weight: 600;
+    box-shadow: 0 4px 6px -1px rgba(79, 70, 229, 0.2);
+}
+
+.newBookingBtn:hover {
+    background: #4338ca;
+}
+
+@media (max-width: 768px) {
+    .sidebar {
+        width: 220px;
+    }
+}

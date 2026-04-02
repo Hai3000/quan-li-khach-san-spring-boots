@@ -1,0 +1,74 @@
+.appLayout {
+    display: flex;
+    min-height: 100vh;
+    background-color: var(--bg-body);
+}
+
+.contentWrapper {
+    flex: 1;
+    margin-left: 250px;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.mainContent {
+    flex: 1;
+    padding: 2.5rem;
+    background: #f8fafc;
+}
+
+.pageContent {
+    background-color: var(--bg-surface);
+    padding: 2.5rem;
+    border-radius: 16px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
+    border: 1px solid var(--border-color);
+    min-height: calc(100vh - 5rem);
+}
+
+.pageContent h1 {
+    color: var(--text-main);
+    margin-bottom: 0.5rem;
+    font-size: 1.5rem;
+    font-weight: 700;
+    letter-spacing: -0.025em;
+}
+
+/* Thêm hiệu ứng fade in khi render components */
+.pageContent {
+    animation: fadeIn 0.3s ease-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .mainContent {
+        margin-left: 220px;
+        padding: 1.5rem;
+    }
+
+    .pageContent {
+        padding: 1.5rem;
+    }
+}
+
+/* Full-screen boot loader */
+.appBootLoader {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background: var(--bg-primary, #f8fafc);
+}

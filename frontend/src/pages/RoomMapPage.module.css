@@ -1,0 +1,183 @@
+.roomMapContainer {
+    height: 100%;
+    animation: fadeIn 0.3s ease;
+}
+
+.roomMapHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 1.5rem;
+    padding-bottom: 1.25rem;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.roomMapHeader h1 {
+    margin: 0 0 0.2rem;
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: var(--text-primary);
+}
+
+.subtitle {
+    color: var(--text-secondary);
+    font-size: 0.875rem;
+    margin: 0;
+}
+
+/* Stats Bar */
+.statsBar {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.statCard {
+    flex: 1;
+    background: var(--bg-surface);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 1rem 1.25rem;
+    display: flex;
+    align-items: center;
+    gap: 0.875rem;
+    box-shadow: var(--shadow-sm);
+    transition: transform 0.15s, box-shadow 0.15s;
+}
+
+.statCard:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-card);
+}
+
+.statNum {
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: var(--text-primary);
+    line-height: 1;
+}
+
+.statLabel {
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+    font-weight: 500;
+    margin-top: 0.2rem;
+}
+
+.statIconBlue {
+    color: #6366f1;
+}
+
+.statIconGreen {
+    color: #10b981;
+}
+
+.statIconRed {
+    color: #ef4444;
+}
+
+.statIconAmber {
+    color: #f59e0b;
+}
+
+/* Filters */
+.filterGroup {
+    display: flex;
+    gap: 0.35rem;
+    background: #f1f5f9;
+    padding: 0.25rem;
+    border-radius: 10px;
+    border: 1px solid var(--border-color);
+}
+
+.filterBtn {
+    padding: 0.45rem 0.875rem;
+    background: transparent;
+    color: var(--text-secondary);
+    border: none;
+    border-radius: 7px;
+    cursor: pointer;
+    font-size: 0.84rem;
+    font-weight: 500;
+    transition: all 0.15s ease;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-family: inherit;
+}
+
+.filterBtn:hover {
+    color: var(--text-main);
+    background: rgba(0, 0, 0, 0.04);
+}
+
+.filterBtn.active {
+    background: white;
+    color: var(--primary);
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+    font-weight: 600;
+}
+
+/* Grid */
+.roomGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+    gap: 1.25rem;
+}
+
+/* Skeleton Card */
+.skeletonCard {
+    border-radius: 14px;
+    padding: 1.25rem;
+    min-height: 148px;
+    background: #f1f5f9;
+    border: 1px solid #e2e8f0;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    animation: fadeIn 0.3s ease;
+}
+
+.skeletonLine {
+    border-radius: 6px;
+}
+
+/* Empty & Error */
+.noRooms {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 4rem 2rem;
+    color: var(--text-secondary);
+    font-size: 1rem;
+    background: #f8fafc;
+    border-radius: 14px;
+    border: 1px dashed #cbd5e1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.errorState {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 60vh;
+    color: var(--danger);
+    font-size: 1rem;
+}
+
+@media (max-width: 768px) {
+    .statsBar {
+        flex-wrap: wrap;
+    }
+
+    .statCard {
+        flex: 1 1 calc(50% - 0.5rem);
+    }
+
+    .roomMapHeader {
+        flex-direction: column;
+        gap: 1rem;
+    }
+}

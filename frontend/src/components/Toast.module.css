@@ -1,0 +1,122 @@
+.toast {
+    position: fixed;
+    top: 24px;
+    right: 24px;
+    padding: 14px 16px 14px 16px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: white;
+    font-weight: 500;
+    font-size: 0.9rem;
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.2);
+    z-index: 9999;
+    min-width: 260px;
+    max-width: 400px;
+    overflow: hidden;
+    position: fixed;
+}
+
+.toastIcon {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+}
+
+.toastMsg {
+    flex: 1;
+    line-height: 1.4;
+}
+
+.closeBtn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: rgba(255, 255, 255, 0.7);
+    display: flex;
+    align-items: center;
+    padding: 2px;
+    border-radius: 4px;
+    flex-shrink: 0;
+    transition: color 0.15s;
+}
+
+.closeBtn:hover {
+    color: white;
+}
+
+/* Type colors */
+.success {
+    background: linear-gradient(135deg, #10b981, #059669);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.error {
+    background: linear-gradient(135deg, #ef4444, #dc2626);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.info {
+    background: linear-gradient(135deg, #6366f1, #4f46e5);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+/* Progress bar */
+.progress {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 3px;
+    width: 100%;
+    background: rgba(255, 255, 255, 0.4);
+    transform-origin: left;
+    transform: scaleX(0);
+}
+
+.progressRun {
+    animation: shrink linear forwards;
+}
+
+@keyframes shrink {
+    from {
+        transform: scaleX(1);
+    }
+
+    to {
+        transform: scaleX(0);
+    }
+}
+
+/* Slide animations */
+.slideIn {
+    animation: slideInRight 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.slideOut {
+    animation: slideOutRight 0.3s ease forwards;
+}
+
+@keyframes slideInRight {
+    from {
+        transform: translateX(110%);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes slideOutRight {
+    from {
+        transform: translateX(0);
+        opacity: 1;
+    }
+
+    to {
+        transform: translateX(110%);
+        opacity: 0;
+    }
+}
