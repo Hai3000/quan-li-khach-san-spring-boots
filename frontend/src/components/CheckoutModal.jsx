@@ -200,10 +200,12 @@ const CheckoutModal = ({ room, onClose, onSuccess }) => {
                             <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
                                 <div>
                                     <div style={{ color: 'var(--text-secondary)', fontSize: '0.8rem', display: 'flex', alignItems: 'center', gap: '6px', marginBottom: 4 }}>
-                                        <CalendarDays size={14} /> Ngày Check-in
+                                        <CalendarDays size={14} /> Thời gian Check-in
                                     </div>
                                     <div style={{ fontWeight: 600, color: 'var(--text-main)', fontSize: '0.95rem' }}>
-                                        {new Date(booking.checkInDate).toLocaleString('vi-VN')}
+                                        {booking?.createdAt
+                                            ? new Date(booking.createdAt).toLocaleString('vi-VN', { hour: '2-digit', minute: '2-digit', day: '2-digit', month: '2-digit', year: 'numeric' })
+                                            : new Date(booking.checkInDate).toLocaleDateString('vi-VN')}
                                     </div>
                                 </div>
                                 <div style={{ height: 1, background: 'var(--border-color)' }}></div>
@@ -212,7 +214,23 @@ const CheckoutModal = ({ room, onClose, onSuccess }) => {
                                         <Clock size={14} /> Hạn Check-out
                                     </div>
                                     <div style={{ fontWeight: 600, color: 'var(--text-main)', fontSize: '0.95rem' }}>
-                                        {new Date(booking.checkOutDate).toLocaleString('vi-VN')}
+                                        {(() => {
+                                            if (booking.rentalType === 'HOURLY') {
+                                                const totalDuration = (booking.durationHours || 1) + (booking.serviceCharges || []).reduce((sum, s) => {
+                                                    if (s.name.startsWith('⏱ Gia hạn')) {
+                                                        const match = s.name.match(/(\d+)/);
+                                                        if (match) return sum + parseInt(match[1]);
+                                                    }
+                                                    return sum;
+                                                }, 0);
+
+                                                const baseTime = booking.createdAt ? new Date(booking.createdAt) : new Date();
+                                                baseTime.setHours(baseTime.getHours() + totalDuration);
+                                                return baseTime.toLocaleString('vi-VN', { hour: '2-digit', minute: '2-digit', day: '2-digit', month: '2-digit', year: 'numeric' });
+                                            } else {
+                                                return `${booking.checkOutDate.split('-').reverse().join('/')} (12:00 trưa)`;
+                                            }
+                                        })()}
                                     </div>
                                 </div>
                             </div>

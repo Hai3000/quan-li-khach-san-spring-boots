@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -46,8 +47,8 @@ public class BookingService {
         }
 
         // Overbooking Check
-        java.util.List<Booking> activeBookings = bookingRepository.findByRoomIdAndStatusIn(room.getId(),
-                java.util.List.of(BookingStatus.ACTIVE));
+        List<Booking> activeBookings = bookingRepository.findByRoomIdAndStatusIn(room.getId(),
+                List.of(BookingStatus.ACTIVE, BookingStatus.RESERVED));
         for (Booking b : activeBookings) {
             boolean isOverlap = checkIn.isBefore(b.getCheckOutDate()) && checkOut.isAfter(b.getCheckInDate());
             if (isOverlap) {
@@ -91,6 +92,67 @@ public class BookingService {
         roomRepository.save(room);
 
         return booking;
+    }
+
+    public Booking createReservation(BookingRequest request) {
+        Room room = roomRepository.findById(request.getRoomId())
+                .orElseThrow(() -> new RuntimeException("Room not found"));
+
+        LocalDate checkIn = request.getCheckInDate() != null ? request.getCheckInDate() : LocalDate.now();
+        LocalDate checkOut = request.getCheckOutDate();
+        String rentalType = request.getRentalType() != null ? request.getRentalType() : "DAILY";
+
+        if ("HOURLY".equals(rentalType)) {
+            if (checkOut.isBefore(checkIn)) {
+                throw new RuntimeException("Check-out date cannot be before check-in date");
+            }
+        } else {
+            if (!checkOut.isAfter(checkIn)) {
+                throw new RuntimeException("Check-out date must be after check-in date");
+            }
+        }
+
+        // Overbooking Check
+        List<Booking> activeBookings = bookingRepository.findByRoomIdAndStatusIn(room.getId(),
+                List.of(BookingStatus.ACTIVE, BookingStatus.RESERVED));
+        for (Booking b : activeBookings) {
+            boolean isOverlap = checkIn.isBefore(b.getCheckOutDate()) && checkOut.isAfter(b.getCheckInDate());
+            if (isOverlap) {
+                throw new RuntimeException("Phòng đã có khách hoặc được đặt trong khoảng thời gian này!");
+            }
+        }
+
+        double estimatedPrice = 0;
+        long days = ChronoUnit.DAYS.between(checkIn, checkOut);
+        int durationHours = request.getDurationHours() != null ? request.getDurationHours() : 1;
+
+        if ("HOURLY".equals(rentalType)) {
+            double pricePerHour = room.getPriceHourly() != null ? room.getPriceHourly() : room.getPrice();
+            estimatedPrice = pricePerHour * durationHours;
+        } else if ("OVERNIGHT".equals(rentalType)) {
+            estimatedPrice = room.getPriceOvernight() != null ? room.getPriceOvernight() : room.getPrice();
+            if (days > 1) {
+                estimatedPrice += (days - 1) * room.getPrice(); // extra days use default price
+            }
+        } else {
+            estimatedPrice = days * room.getPrice();
+        }
+
+        Booking booking = Booking.builder()
+                .roomId(room.getId())
+                .roomNumber(room.getRoomNumber())
+                .guestName(request.getGuestName())
+                .cccd(request.getCccd())
+                .phone(request.getPhone())
+                .checkInDate(checkIn)
+                .checkOutDate(checkOut)
+                .rentalType(rentalType)
+                .durationHours("HOURLY".equals(rentalType) ? durationHours : null)
+                .estimatedPrice(estimatedPrice)
+                .status(BookingStatus.RESERVED)
+                .build();
+
+        return bookingRepository.save(booking);
     }
 
     public Booking getActiveBookingForRoom(String roomId) {

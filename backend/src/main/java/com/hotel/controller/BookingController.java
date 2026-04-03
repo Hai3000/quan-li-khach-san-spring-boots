@@ -20,6 +20,11 @@ public class BookingController {
         return ResponseEntity.ok(bookingService.checkIn(request));
     }
 
+    @PostMapping("/reserve")
+    public ResponseEntity<Booking> createReservation(@RequestBody BookingRequest request) {
+        return ResponseEntity.ok(bookingService.createReservation(request));
+    }
+
     @PostMapping("/{bookingId}/checkout")
     public ResponseEntity<Invoice> checkOut(@PathVariable String bookingId,
             @RequestBody(required = false) com.hotel.dto.CheckoutRequest request) {

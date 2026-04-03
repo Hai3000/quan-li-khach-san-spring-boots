@@ -3,7 +3,7 @@ import { BedDouble, Bed, Users, ClipboardList, Plus } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 import styles from './Sidebar.module.css';
 
-const Sidebar = () => {
+const Sidebar = ({ onOpenNewBooking }) => {
     const { user } = useAuth();
 
     return (
@@ -45,7 +45,7 @@ const Sidebar = () => {
 
             <div className={styles.sidebarFooter}>
                 {user?.role === 'RECEPTIONIST' && (
-                    <button className={styles.newBookingBtn}>
+                    <button className={styles.newBookingBtn} onClick={onOpenNewBooking}>
                         <Plus size={18} />
                         <span>New Booking</span>
                     </button>

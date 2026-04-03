@@ -9,11 +9,13 @@ import AdminInvoicePage from './pages/admin/AdminInvoicePage';
 import SetupWizardPage from './pages/SetupWizardPage';
 import Sidebar from './components/Sidebar';
 import TopNav from './components/TopNav';
+import NewBookingModal from './components/NewBookingModal';
 import styles from './App.module.css';
 
 // Private Route Guard
 const PrivateRoute = ({ children, allowedRole }) => {
   const { user, loading } = useAuth();
+  const [isNewBookingOpen, setIsNewBookingOpen] = useState(false);
 
   if (loading) return (
     <div className={styles.appBootLoader}>
@@ -31,13 +33,23 @@ const PrivateRoute = ({ children, allowedRole }) => {
 
   return (
     <div className={styles.appLayout}>
-      <Sidebar />
+      <Sidebar onOpenNewBooking={() => setIsNewBookingOpen(true)} />
       <div className={styles.contentWrapper}>
         <TopNav />
         <main className={styles.mainContent}>
           {children}
         </main>
       </div>
+
+      {isNewBookingOpen && (
+        <NewBookingModal
+          onClose={() => setIsNewBookingOpen(false)}
+          onSuccess={() => {
+            setIsNewBookingOpen(false);
+            window.location.reload(); // Simple reload to refresh data
+          }}
+        />
+      )}
     </div>
   );
 };
