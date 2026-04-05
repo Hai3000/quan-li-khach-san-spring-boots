@@ -223,4 +223,32 @@ public class BookingService {
 
         return invoiceRepository.save(invoice);
     }
+
+    public List<Booking> getReservations() {
+        return bookingRepository.findByStatus(BookingStatus.RESERVED);
+    }
+
+    public Booking confirmReservationCheckin(String bookingId) {
+        Booking booking = bookingRepository.findById(bookingId)
+                .orElseThrow(() -> new RuntimeException("Booking not found"));
+
+        if (booking.getStatus() != BookingStatus.RESERVED) {
+            throw new RuntimeException("Only RESERVED bookings can be checked in");
+        }
+
+        Room room = roomRepository.findById(booking.getRoomId())
+                .orElseThrow(() -> new RuntimeException("Room not found"));
+
+        if (room.getStatus() != RoomStatus.AVAILABLE && room.getStatus() != RoomStatus.CLEANING) {
+            throw new RuntimeException("Room is not available for check-in");
+        }
+
+        booking.setStatus(BookingStatus.ACTIVE);
+        bookingRepository.save(booking);
+
+        room.setStatus(RoomStatus.OCCUPIED);
+        roomRepository.save(room);
+
+        return booking;
+    }
 }

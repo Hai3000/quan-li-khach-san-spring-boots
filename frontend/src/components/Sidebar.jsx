@@ -1,5 +1,5 @@
 import { NavLink } from 'react-router-dom';
-import { BedDouble, Bed, Users, ClipboardList, Plus } from 'lucide-react';
+import { BedDouble, Bed, Users, ClipboardList, Plus, CalendarClock } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 import styles from './Sidebar.module.css';
 
@@ -24,6 +24,12 @@ const Sidebar = ({ onOpenNewBooking }) => {
                     `${styles.navItem} ${isActive ? styles.active : ''}`}>
                     <BedDouble size={20} />
                     <span>{user?.role === 'ADMIN' ? 'Quản lý Phòng' : 'Sơ đồ phòng'}</span>
+                </NavLink>
+
+                <NavLink to={user?.role === 'ADMIN' ? '/admin/reservations' : '/receptionist/reservations'} className={({ isActive }) =>
+                    `${styles.navItem} ${isActive ? styles.active : ''}`}>
+                    <CalendarClock size={20} />
+                    <span>Danh sách Đặt chỗ</span>
                 </NavLink>
 
                 {user?.role === 'ADMIN' && (

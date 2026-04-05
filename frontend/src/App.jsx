@@ -6,6 +6,7 @@ import RoomMapPage from './pages/RoomMapPage';
 import AdminRoomPage from './pages/admin/AdminRoomPage';
 import AdminStaffPage from './pages/admin/AdminStaffPage';
 import AdminInvoicePage from './pages/admin/AdminInvoicePage';
+import ReservationPage from './pages/ReservationPage';
 import SetupWizardPage from './pages/SetupWizardPage';
 import Sidebar from './components/Sidebar';
 import TopNav from './components/TopNav';
@@ -77,6 +78,7 @@ function AppRoutes({ initialized }) {
         <PrivateRoute allowedRole="RECEPTIONIST">
           <Routes>
             <Route path="rooms" element={<RoomMapPage />} />
+            <Route path="reservations" element={<ReservationPage />} />
             <Route path="*" element={<Navigate to="rooms" />} />
           </Routes>
         </PrivateRoute>
@@ -87,6 +89,7 @@ function AppRoutes({ initialized }) {
         <PrivateRoute allowedRole="ADMIN">
           <Routes>
             <Route path="rooms" element={<AdminRoomPage />} />
+            <Route path="reservations" element={<ReservationPage />} />
             <Route path="staff" element={<AdminStaffPage />} />
             <Route path="invoices" element={<AdminInvoicePage />} />
             <Route path="*" element={<Navigate to="rooms" />} />

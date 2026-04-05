@@ -4,10 +4,17 @@ import api from '../api/api';
 import styles from './Modal.module.css';
 
 const CheckinModal = ({ room, onClose, onSuccess }) => {
+    const getLocalDateString = (d = new Date()) => {
+        const year = d.getFullYear();
+        const month = String(d.getMonth() + 1).padStart(2, '0');
+        const day = String(d.getDate()).padStart(2, '0');
+        return `${year}-${month}-${day}`;
+    };
+
     const getTomorrowDate = () => {
         const tomorrow = new Date();
         tomorrow.setDate(tomorrow.getDate() + 1);
-        return tomorrow.toISOString().split('T')[0];
+        return getLocalDateString(tomorrow);
     };
 
     const [formData, setFormData] = useState({
@@ -69,7 +76,7 @@ const CheckinModal = ({ room, onClose, onSuccess }) => {
 
         // Auto-fix checkout date constraints when switching configs
         if (name === 'rentalType' && value === 'HOURLY') {
-            setFormData(prev => ({ ...prev, checkOutDate: new Date().toISOString().split('T')[0] }));
+            setFormData(prev => ({ ...prev, checkOutDate: getLocalDateString(new Date()) }));
         } else if (name === 'rentalType' && (value === 'DAILY' || value === 'OVERNIGHT')) {
             setFormData(prev => ({ ...prev, checkOutDate: getTomorrowDate() }));
         }
@@ -241,7 +248,7 @@ const CheckinModal = ({ room, onClose, onSuccess }) => {
                                     name="checkOutDate"
                                     value={formData.checkOutDate}
                                     onChange={handleChange}
-                                    min={new Date(new Date().setDate(new Date().getDate() + 1)).toISOString().split('T')[0]}
+                                    min={getLocalDateString(new Date(new Date().setDate(new Date().getDate() + 1)))}
                                     className={errors.checkOutDate ? styles.inputError : ''}
                                 />
                                 {errors.checkOutDate && <span className={styles.errorText}>{errors.checkOutDate}</span>}

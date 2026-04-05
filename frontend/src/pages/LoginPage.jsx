@@ -61,7 +61,7 @@ const LoginPage = () => {
             {/* Top Navigation */}
             <nav className={styles.topNav}>
                 <div className={styles.navLeft}>
-                    <strong>Hotel System</strong>
+                    <strong>Hotel MIXI</strong>
                 </div>
                 <div className={styles.navRight}>
                     <span className={styles.navActive}>Đăng Nhập</span>
@@ -158,7 +158,7 @@ const LoginPage = () => {
 
             {/* Bottom Footer */}
             <footer className={styles.bottomFooter}>
-                <div className={styles.footerLeft}>© 2024 HOTEL SYSTEM. ALL RIGHTS RESERVED.</div>
+                <div className={styles.footerLeft}>© 2026 HOTEL MIXI.</div>
                 <div className={styles.footerRight}>
                     <span>SUPPORT</span>
                     <span>TERMS</span>
