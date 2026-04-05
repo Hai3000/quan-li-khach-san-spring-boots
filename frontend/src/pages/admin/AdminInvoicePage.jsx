@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
-import { ClipboardList, Receipt, ChevronLeft, ChevronRight, TrendingUp, Calendar, CreditCard, Banknote, User } from 'lucide-react';
+import { ClipboardList, Receipt, ChevronLeft, ChevronRight, TrendingUp, Calendar, CreditCard, Banknote, User, Printer } from 'lucide-react';
+import { generateInvoiceDocx } from '../../utils/invoiceDocxGenerator';
 import api from '../../api/api';
 import styles from './AdminTable.module.css';
 
@@ -114,6 +115,7 @@ const AdminInvoicePage = () => {
                                 <th>PHƯƠNG THỨC</th>
                                 <th>NGÀY THANH TOÁN</th>
                                 <th style={{ textAlign: 'right' }}>TỔNG TIỀN</th>
+                                <th style={{ textAlign: 'center', width: '80px' }}>THAO TÁC</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -173,6 +175,24 @@ const AdminInvoicePage = () => {
                                                 <strong style={{ color: '#10b981', fontSize: '1.05rem' }}>
                                                     {inv.totalAmount?.toLocaleString('vi-VN')} đ
                                                 </strong>
+                                            </td>
+                                            <td style={{ textAlign: 'center' }}>
+                                                <button
+                                                    onClick={async () => {
+                                                        try {
+                                                            const booking = await api.get(`/bookings/${inv.bookingId}`);
+                                                            generateInvoiceDocx({ ...booking, ...inv, roomNumber: inv.roomNumber });
+                                                        } catch (err) {
+                                                            alert("Lỗi khi tải chi tiết hóa đơn: " + err.message);
+                                                        }
+                                                    }}
+                                                    title="In Hóa Đơn"
+                                                    style={{ background: '#f8fafc', border: '1px solid #e2e8f0', padding: '6px 10px', borderRadius: '6px', color: '#4f46e5', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto', transition: 'all 0.2s' }}
+                                                    onMouseOver={(e) => { e.currentTarget.style.background = '#eef2ff'; e.currentTarget.style.borderColor = '#c7d2fe'; }}
+                                                    onMouseOut={(e) => { e.currentTarget.style.background = '#f8fafc'; e.currentTarget.style.borderColor = '#e2e8f0'; }}
+                                                >
+                                                    <Printer size={16} />
+                                                </button>
                                             </td>
                                         </tr>
                                     );

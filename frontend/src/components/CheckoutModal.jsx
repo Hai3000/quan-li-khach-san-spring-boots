@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
-import { X, Receipt, User, Phone, CalendarDays, Clock, Banknote, CreditCard, Trash2, Building, ConciergeBell, Plus, DollarSign } from 'lucide-react';
+import { X, Receipt, User, Phone, CalendarDays, Clock, Banknote, CreditCard, Trash2, Building, ConciergeBell, Plus, DollarSign, Printer } from 'lucide-react';
+import { generateInvoiceDocx } from '../utils/invoiceDocxGenerator';
 import api from '../api/api';
 import styles from './Modal.module.css';
 
@@ -361,6 +362,9 @@ const CheckoutModal = ({ room, onClose, onSuccess }) => {
                             </div>
 
                             <div style={{ display: 'flex', gap: '12px' }}>
+                                <button onClick={() => generateInvoiceDocx({ ...booking, roomNumber: room.roomNumber, paymentMethod, estimatedPrice: booking.estimatedPrice }, { name: "Hotel MIXI", address: "123 Đường Dân Chủ, Quận 10, TP.HCM", phone: "1900 1234" })} type="button" className={styles.btnSecondary} style={{ flex: 1, padding: '12px', display: 'flex', gap: '6px', alignItems: 'center', justifyContent: 'center', background: '#fff', border: '1px solid #cbd5e1', color: '#475569' }}>
+                                    <Printer size={18} /> In tạm tính
+                                </button>
                                 <button onClick={onClose} className={styles.btnSecondary} disabled={isSubmitting} style={{ flex: 1, padding: '12px' }}>
                                     Hủy bỏ
                                 </button>

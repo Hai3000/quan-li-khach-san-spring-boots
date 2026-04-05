@@ -251,4 +251,9 @@ public class BookingService {
 
         return booking;
     }
+
+    public Booking getBookingById(String bookingId) {
+        return bookingRepository.findById(bookingId)
+                .orElseThrow(() -> new RuntimeException("Booking not found"));
+    }
 }

@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
-import { Building2, User, Lock, ArrowRight, Eye, EyeOff } from 'lucide-react';
+import { Building2, User, Lock, ArrowRight, Eye, EyeOff, X } from 'lucide-react';
 import styles from './LoginPage.module.css';
 
 const LoginPage = () => {
@@ -11,6 +11,7 @@ const LoginPage = () => {
     const [rememberMe, setRememberMe] = useState(false);
     const [error, setError] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
+    const [showForgotModal, setShowForgotModal] = useState(false);
 
     const { login } = useAuth();
     const navigate = useNavigate();
@@ -144,7 +145,7 @@ const LoginPage = () => {
                                 />
                                 <span className={styles.checkboxText}>Ghi nhớ đăng nhập</span>
                             </label>
-                            <a href="#" className={styles.forgotLink} onClick={e => e.preventDefault()}>Quên mật khẩu?</a>
+                            <a href="#" className={styles.forgotLink} onClick={e => { e.preventDefault(); setShowForgotModal(true); }}>Quên mật khẩu?</a>
                         </div>
 
                         <button type="submit" disabled={isLoading} className={styles.submitBtn}>
@@ -155,6 +156,29 @@ const LoginPage = () => {
                 </div>
 
             </main>
+
+            {/* Forgot Password Modal */}
+            {showForgotModal && (
+                <div className={styles.modalOverlay} onClick={() => setShowForgotModal(false)}>
+                    <div className={styles.modalContent} onClick={e => e.stopPropagation()}>
+                        <div className={styles.modalHeader}>
+                            <h3 className={styles.modalTitle}>Quên mật khẩu</h3>
+                            <button className={styles.modalCloseBtn} onClick={() => setShowForgotModal(false)}>
+                                <X size={20} />
+                            </button>
+                        </div>
+                        <div className={styles.modalBody}>
+                            <p>Vì đây là hệ thống quản trị nội bộ, vui lòng liên hệ trực tiếp với <strong>Quản trị viên (Admin)</strong> để được cấp lại mật khẩu mới.</p>
+                            <p style={{ marginTop: '0.5rem' }}>Hotline hỗ trợ: <strong style={{color: '#4f46e5'}}>1900 1234</strong></p>
+                        </div>
+                        <div className={styles.modalFooter}>
+                            <button type="button" className={styles.modalOkBtn} onClick={() => setShowForgotModal(false)}>
+                                Đã hiểu
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            )}
 
             {/* Bottom Footer */}
             <footer className={styles.bottomFooter}>

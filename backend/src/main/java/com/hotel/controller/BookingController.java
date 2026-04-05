@@ -63,4 +63,9 @@ public class BookingController {
     public ResponseEntity<Booking> confirmReservationCheckin(@PathVariable String bookingId) {
         return ResponseEntity.ok(bookingService.confirmReservationCheckin(bookingId));
     }
+
+    @GetMapping("/{bookingId}")
+    public ResponseEntity<Booking> getBookingById(@PathVariable String bookingId) {
+        return ResponseEntity.ok(bookingService.getBookingById(bookingId));
+    }
 }
